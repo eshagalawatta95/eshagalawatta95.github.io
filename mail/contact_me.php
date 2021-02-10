@@ -18,7 +18,7 @@ $phone = strip_tags(htmlspecialchars($_POST['phone']));
 $message = strip_tags(htmlspecialchars($_POST['message']));
    
 // Create the email and send the message
-
+echo($message);
  
 $mail = new PHPMailer();
  
