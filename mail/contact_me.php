@@ -1,5 +1,7 @@
 <?php
 // Check for empty fields
+include("class.phpmailer.php"); //you have to upload class files "class.phpmailer.php" and "class.smtp.php"
+
 if(empty($_POST['name'])      ||
    empty($_POST['email'])     ||
    empty($_POST['phone'])     ||
@@ -16,11 +18,34 @@ $phone = strip_tags(htmlspecialchars($_POST['phone']));
 $message = strip_tags(htmlspecialchars($_POST['message']));
    
 // Create the email and send the message
-$to = 'esh.agalawatta@gmail.com'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
-$email_subject = "Website Contact Form:  $name";
-$email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message";
-$headers = "From: deanrox95@gmail.com\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
-$headers .= "Reply-To: $email_address";   
-mail($to,$email_subject,$email_body,$headers);
+
+ 
+$mail = new PHPMailer();
+ 
+$mail->IsSMTP();
+$mail->SMTPDebug  = 1;   
+$mail->SMTPAuth = true;
+
+$mail->Host = "smtp.gmail.com";
+
+$mail->Username = "deanrox95@gmail.com";
+$mail->Password = "eshan456456"; 
+  
+$mail->From = "deanrox95@gmail.com";
+$mail->FromName = "My Website Contact";
+ 
+$mail->AddAddress("esh.agalawatta@gmail.com","My Website Contact");
+$mail->Subject = "HBSI Contact";
+//$mail->IsHTML(true);
+
+$mail->Body =  "Name : ". $name."\r\n E-mail : ". $email."\r\Phone : ". $phone ."\r\nMessage : ". $message."";
+ 
+	$mail->Port = 80;
+	if(!$mail->Send()) {
+         echo "Message sending faild" ;
+    } 
+     else {
+          echo "Message has been sent";
+    }
 return true;         
 ?>
