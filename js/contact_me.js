@@ -21,7 +21,7 @@ $(function() {
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
 	    dataType: 'jsonp',
-        url: "http://getsimpleform.com/messages/ajax?form_api_token=8767ded0b0de31714007c71d9c0b2fec"
+        url: "http://getsimpleform.com/messages/ajax?form_api_token=8767ded0b0de31714007c71d9c0b2fec",
         type: "POST",
         data: {
           name: name,
